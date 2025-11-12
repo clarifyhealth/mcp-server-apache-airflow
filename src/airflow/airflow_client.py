@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from airflow_client.client import ApiClient, Configuration
 
 from src.envs import (
@@ -11,8 +9,9 @@ from src.envs import (
 )
 
 # Create a configuration and API client
+# AIRFLOW_HOST may include a deployment path (e.g., for Astronomer), so append API path directly
 configuration = Configuration(
-    host=urljoin(AIRFLOW_HOST, f"/api/{AIRFLOW_API_VERSION}"),
+    host=f"{AIRFLOW_HOST}/api/{AIRFLOW_API_VERSION}",
 )
 
 # Set up authentication - prefer JWT token if available, fallback to basic auth
